@@ -99,10 +99,20 @@ app.get("/info/:id", (req, res) => {
 
 // Set up the /api/{id} path that sends back the planet object based on index
 // e.g. /api/0 sends back Mercury's object
-
+app.get("/api/:id", (req, res) => {
+  const id = req.params.id
+  res.json(spaceData[id])
+})
 // Set up the /image/{id} path that sends back the image file of the planet based on index
 // e.g. /image/0 sends back Mercury's image
 
+ app.get("/", (res, req) => {
+  res.sendFile(__dirname + "/public/index.html")
+ })
+app.get("/image/:id", (req, res) => {
+  const id = req.params.id
+  res.sendFile(__dirname + "/public" + spaceData[id].imagePath)
+})
 app.listen(3000, () => {
   console.log("Server running");
 });
